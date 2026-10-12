@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+void main()
+{
+   int choice;
+   clrscr();
+
+   do
+   {
+
+
+   }while(choice!=10);
+
+
+  getch();
+  }

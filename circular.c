@@ -1,0 +1,313 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+struct node
+{
+     int data;
+     struct node *next;
+};
+
+struct node *head=NULL,*newnode;
+
+void create()
+{
+     struct node *temp;
+     int select=1;
+     while(select)
+     {
+     newnode=(struct node *)malloc(sizeof(struct node));
+
+     printf("\nEnter data: ");
+     scanf("%d",&newnode->data);
+    
+     if(head==NULL)
+     {
+	   head=temp=newnode;
+       newnode->next=head;
+	   printf("\nNode created ");
+     }
+     else{
+	  temp->next=newnode;
+	  temp=newnode;
+      newnode->next=head;
+	  printf("\nNode created %c",1);
+     }
+     printf("\nDo you want to continue(1/0): ");
+     scanf("%d",&select);
+   }
+}
+
+void ins_beg()
+{
+
+    struct node *temp;
+     newnode=(struct node *)malloc(sizeof(struct node));
+
+printf("\nEnter data: ");
+scanf("%d",&newnode->data);
+if(head==NULL)
+{
+    head=newnode;
+newnode->next=head;
+
+printf("\nValue inserted ");
+}
+else{
+    temp=head;
+
+    while(temp->next!=head)
+    {
+        temp=temp->next;
+    }
+    newnode->next=head;
+    head=newnode;
+    temp->next=head;
+    printf("\nValue inserted ");
+}
+
+}
+void ins_end()
+{
+      struct node *temp;
+      temp=head;
+      newnode=(struct node *)malloc(sizeof(struct node));
+      printf("\nEnter data: ");
+      scanf("%d",&newnode->data);
+     newnode->next=NULL;
+
+      if(head==NULL)
+      {
+	   head=newnode;
+       newnode->next=head;
+	   printf("\nValue inserted ");
+      }
+      else{
+	  temp=head;
+	  while(temp->next!=head)
+	  {
+	       temp=temp->next;
+	  }
+	  temp->next=newnode;
+      newnode->next=head;
+	  printf("\nValue inserted ");
+      }
+}
+void ins_pos()
+{
+     int pos,i;
+     struct node *temp;
+     temp=head;
+
+      newnode=(struct node *)malloc(sizeof(struct node));
+
+      printf("Enter data: ");
+      scanf("%d",&newnode->data);
+     newnode->next=NULL;
+
+     printf("\nEnter position: ");
+     scanf("%d",&pos);
+     if(pos==1)
+     {
+	  if(head==NULL)
+      {
+        head=newnode;
+        newnode->next=head;
+      }
+      else{
+        while(temp->next!=head)
+        {
+            temp=temp->next;
+        }
+        newnode->next=head;
+        head=newnode;
+        temp->next=head;
+      }
+     }
+     else{
+
+	  for(i=1;i<pos-1;i++)
+	  {
+	       temp=temp->next;
+	       if(temp->next==head)
+	       {
+		    printf("\nInvalid position !");
+		    return;
+	       }
+	  }
+	  newnode->next=temp->next;
+	  temp->next=newnode;
+	  printf("\nValue inserted ");
+     }
+
+}
+
+void del_beg()
+{
+     struct node *temp;
+     if(head==NULL)
+     {
+	  printf("\nList is Empty !");
+	  return;
+     }
+     temp=head;
+     head=head->next;
+     free(temp);
+     printf("\nValue deleted !");
+}
+void del_end()
+{
+     struct node *prev,*temp;
+     temp=head;
+     if(head==NULL)
+     {
+	  printf("\nList is empty !");
+	  return;
+     }
+     if(head->next==NULL)
+     {
+	  free(head);
+	  head=NULL;
+	  return;
+	  printf("\nValue deleted !");
+     }
+     while(temp->next!=NULL)
+     {
+	  prev=temp;
+	  temp=temp->next;
+     }
+     prev->next=NULL;
+     free(temp);
+	  printf("\nValue deleted !");
+}
+void del_pos()
+{
+      struct node *prev,*temp;
+      int pos,i;
+      temp=head;
+
+
+       printf("\nEnter position :  ");
+       scanf("%d",&pos);
+
+       if(head==NULL)
+       {
+	  printf("\nList is empty!");
+	  return;
+       }
+       if(pos==1)
+       {  temp=head;
+	  head=head->next;
+	  free(temp);
+	  return;
+       }
+
+       for(i=1;i<pos-1;i++)
+       {
+	  prev=temp;
+	  temp=temp->next;
+
+	  if(temp==NULL)
+	  {
+	       printf("\nInvalid position !");
+	       return;
+	  }
+       }
+       prev->next=temp->next;
+       free(temp);
+       printf("\nValue deleted !");
+}
+void search()
+{
+     struct node *temp;
+
+     int key,pos=1;
+     temp=head;
+     printf("\nEnter key value to search: ");
+     scanf("%d",&key);
+
+     if(head==NULL)
+     {
+	  printf("\nList id empty!");
+	  return;
+     }
+     while(temp!=NULL)
+     {
+       if(temp->data==key)
+       {
+	  printf("%d found at position => %d",key,pos);
+	  return;
+       }
+       temp=temp->next;
+       pos++;
+     }
+     printf("\nValue not available in this list !");
+}
+void display()
+{
+     struct node *temp;
+     temp=head;
+
+     if(head==NULL)
+     {
+	  printf("\nList is empty !");
+	  return;
+     }
+     while(temp !=NULL)
+     {
+	  printf("%d ->",temp->data);
+	  temp=temp->next;
+     }
+     printf("NULL");
+}
+void main()
+{
+     int choice;
+
+     do
+     {
+	  printf("\n\n=========MANU==========\n");
+	  printf("1: Create\n");
+	  printf("2: Insert at beggining \n");
+	  printf("3: INsert at end \n");
+	  printf("4: Insert at any position \n");
+	  printf("5: Delete at beggining \n");
+	  printf("6: Delete at end \n");;
+	  printf("7: Delete at any position \n");
+	  printf("8: Search \n");
+	  printf("9: Display \n");
+	  printf("10: Exit \n");
+
+	  printf("\nEnter choice: ");
+	  scanf("%d",&choice);
+
+	  switch(choice)
+	  {
+		case 1: create(); break;
+
+		case 2: ins_beg(); break;
+
+		case 3: ins_end(); break;
+
+		case 4: ins_pos(); break;
+
+		case 5: del_beg(); break;
+
+		case 6: del_end(); break;
+
+		case 7: del_pos(); break;
+
+		case 8: search(); break;
+
+		case 9:  display(); break;
+
+		case 10: printf("\nThanks for using me %c",1);
+			  break;
+
+		default: printf("\nEnter valid choice !");
+			 break;
+	  }
+     } while (choice!=10);
+
+
+     getch();
+}
